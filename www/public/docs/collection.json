@@ -1,0 +1,79 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel API",
+        "_postman_id": "7273282b-a6b5-485e-b547-79b3a6c53462",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Authentication",
+            "description": "\nRegisters a new user",
+            "item": [
+                {
+                    "name": "Handle a registration request for the application.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "api\/v1\/auth\/register",
+                            "query": []
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"first_name\": \"Francis\",\n    \"last_name\": \"Etoka\",\n    \"username\": \"etoks\",\n    \"email\": \"francis.dretoka@gmail.com\",\n    \"password\": \"12345678\",\n    \"password_confirmation\": \"12345678\"\n}"
+                        },
+                        "description": "Creates a user into the application",
+                        "response": []
+                    }
+                }
+            ]
+        },
+        {
+            "name": "general",
+            "description": "",
+            "item": [
+                {
+                    "name": "Show the application dashboard.",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "localhost",
+                            "path": "home",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}
