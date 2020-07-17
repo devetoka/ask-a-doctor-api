@@ -1,5 +1,6 @@
 # ASK A DOCTOR API
-Laravel Dockerization setup
+
+API for quora-like platform. Unlike Quora, this platform specifically involves interactions between medical practitioners and users. Users ask health related questions and doctors respond accordingly
 
 
 
