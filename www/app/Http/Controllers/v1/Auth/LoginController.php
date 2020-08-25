@@ -71,6 +71,9 @@ class LoginController extends Controller
                 JsonResponse::HTTP_UNAUTHORIZED, 'Invalid credentials'
             );
         }
+
+        // return unauthorized if email not verified TODO:
+        if(!$user->email_verified_at) return $this->notVerifiedResponse();
         //create token
         $token = $user->createToken($user->username);
         $data = [
@@ -85,6 +88,13 @@ class LoginController extends Controller
         );
 
 
+    }
+
+    public function notVerifiedResponse()
+    {
+        return ApiResponse::sendResponse([], trans('login.email_not_verified'),
+            true, JsonResponse::HTTP_UNAUTHORIZED
+        );
     }
 
 

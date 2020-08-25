@@ -6,11 +6,11 @@ namespace Tests\Feature\Authentication\Login;
 
 use App\Http\Response\ApiResponse;
 use App\Models\User;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
+//use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 use Illuminate\Support\Facades\Hash;
-use Tests\Feature\BaseTestCase;
-use Tests\TestCase;
+use Tests\BaseTestCase;
 
 class LoginTest extends BaseTestCase
 {
@@ -106,6 +106,9 @@ class LoginTest extends BaseTestCase
      */
     public function user_id_locked_after_too_many_failed_login_attempts()
     {
+        $this->withMiddleware(
+            ThrottleRequests::class
+        );
         $data = $this->getData();
         $data['password'] = 'pasl';
         for($i = 0; $i < 30 ; $i++){

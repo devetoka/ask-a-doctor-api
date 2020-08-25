@@ -3,9 +3,11 @@
 namespace App\Exceptions;
 
 use App\Http\Response\ApiResponse;
+use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -27,6 +29,17 @@ class Handler extends ExceptionHandler
     protected $dontFlash = [
         'password',
         'password_confirmation',
+    ];
+
+    /**
+     *
+     * Custom error messages
+     */
+
+    protected $errorCodes = [
+        '404' => 'exception.not_found',
+        '500' => 'exception.internal_server_error',
+        '400' => 'exception.invalid_request',
     ];
 
     /**
@@ -58,6 +71,27 @@ class Handler extends ExceptionHandler
                 false, ApiResponse::HTTP_TOO_MANY_REQUESTS
             );
         }
+        if($exception instanceof InvalidSignatureException) {
+            return ApiResponse::sendResponse([], $exception->getMessage(),
+                false, $exception->getStatusCode()
+            );
+        }
+        if($exception instanceof QueryException) {
+            return ApiResponse::sendResponse([], trans('exception.database'),
+                false, ApiResponse::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+//        if(array_key_exists($exception->getStatusCode(), $this->errorCodes)){
+//            return ApiResponse::sendResponse([], trans($this->errorCodes[$exception->getStatusCode()]),
+//                false, $exception->getStatusCode()
+//            );
+//        }
+
+//        dd($exception);
+//        return ApiResponse::sendResponse([], $exception->getMessage(),
+//            false, ApiResponse::HTTP_INTERNAL_SERVER_ERROR
+//        );
+
         return parent::render($request, $exception);
     }
 }
