@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -17,9 +18,8 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             "App\Listeners\Auth\SendVerificationEmailNotification",
         ],
-        'App\Events\Auth\Validated' => [
+        Verified::class => [
             'App\Listeners\Auth\SendWelcomeEmailNotification',
-            'App\Listeners\Auth\SendNewUserNotification',
         ]
     ];
 

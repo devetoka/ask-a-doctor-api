@@ -22,7 +22,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::prefix('v1')->namespace('v1')->group(function (){
     Route::prefix('auth')->group(function(){
         Route::post('register', 'Auth\RegisterController@register');
-        Route::post('login', 'Auth\LoginController@login')->middleware(['throttle']);
+        Route::post('login', 'Auth\LoginController@login')->middleware(['throttle'])->name('login');
+        Route::get('verify/{token}', 'Auth\verificationController@verify');
+        Route::post('password-reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+        Route::post('reset', 'Auth\ResetPasswordController@reset');
     });
 });
 

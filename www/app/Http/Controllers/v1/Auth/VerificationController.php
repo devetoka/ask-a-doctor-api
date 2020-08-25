@@ -3,8 +3,14 @@
 namespace App\Http\Controllers\v1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Response\ApiResponse;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\Utilities\Enum\Encryption\Encryption;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class VerificationController extends Controller
 {
@@ -35,8 +41,34 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('signed')->only('verify');
-        $this->middleware('throttle:6,1')->only('verify', 'resend');
+//        $this->middleware('auth');
+        $this->middleware('verification')->only('verify');
+//        $this->middleware('throttle')->only('verify', 'resend');
+    }
+
+    public function verify(Request $request)
+    {
+        $token = Encryption::explode($request->token);
+        $email = preg_grep("/(.+)@(.+)\.(.+)/", $token);
+        $user = User::whereEmail($email[0])->first();
+        if($user){
+            if ($user->hasVerifiedEmail()) {
+                return ApiResponse::sendResponse([], trans('verification.existing'),
+                    true, ApiResponse::HTTP_OK
+                );
+            }
+
+            if ($user->markEmailAsVerified()) {
+                event(new Verified($user));
+                return ApiResponse::sendResponse($user, trans('verification.successs'),
+                    true, ApiResponse::HTTP_OK
+                );
+            }
+        }
+
+        return ApiResponse::sendResponse($user, trans('verification.error'),
+            false, ApiResponse::HTTP_BAD_REQUEST
+        );
+
     }
 }

@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
+use Illuminate\Routing\Middleware\ThrottleRequests;
 
 class BaseTestCase extends TestCase
 {
@@ -13,5 +13,8 @@ class BaseTestCase extends TestCase
         parent::setUp();
 //        $this->withoutExceptionHandling();
         \Artisan::call('passport:install');
+        $this->withoutMiddleware(
+            ThrottleRequests::class
+        );
     }
 }

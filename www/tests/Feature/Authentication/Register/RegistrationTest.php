@@ -6,7 +6,7 @@ namespace Tests\Feature\Authentication\Register;
 
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
-use Tests\Feature\BaseTestCase;
+use Tests\BaseTestCase;
 use Illuminate\Support\Facades\Event;
 
 class RegistrationTest extends BaseTestCase
@@ -42,6 +42,25 @@ class RegistrationTest extends BaseTestCase
             ]
         ]);
         $response->assertSee($this->getData()['first_name']);
+    }
+
+    /**
+     * @test
+     */
+    public function username_must_be_unique()
+    {
+        $data2 = $this->getData();
+        $response = $this->post('/api/v1/auth/register', $this->getData()); // factory should be run here instead
+        $data2['email']  = 'another@email.com';
+        $response = $this->post('/api/v1/auth/register', $data2);
+        $response->assertStatus(JsonResponse::HTTP_BAD_REQUEST);
+        $response->assertJsonStructure([
+            'status',
+            'message',
+            'errors' => [
+                '*' => []
+            ]
+        ]);
     }
 
     /**
