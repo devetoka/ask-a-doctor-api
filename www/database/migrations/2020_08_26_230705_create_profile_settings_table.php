@@ -18,7 +18,11 @@ class CreateProfileSettingsTable extends Migration
             $table->uuid('user_id');
             $table->string('setting');
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
+        
     }
 
     /**

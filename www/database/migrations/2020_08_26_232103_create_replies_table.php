@@ -14,7 +14,11 @@ class CreateRepliesTable extends Migration
     public function up()
     {
         Schema::create('replies', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->string('replyable_type');
+            $table->uuid('replayable_id');
+            $table->uuid('user_id');
+            $table->longText('content');
             $table->timestamps();
         });
     }
