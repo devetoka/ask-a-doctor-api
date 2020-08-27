@@ -15,8 +15,15 @@ class CreateProfileSettingsTable extends Migration
     {
         Schema::create('profile_settings', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id')->index();
+            $table->string('setting');
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
+        
     }
 
     /**

@@ -15,6 +15,11 @@ class CreateMediaTable extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->string('mediable_type');
+            $table->uuid('mediable_id');
+            $table->text('url');
+            $table->uuid('user_id');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

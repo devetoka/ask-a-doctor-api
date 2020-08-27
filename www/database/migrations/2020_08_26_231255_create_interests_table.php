@@ -15,7 +15,13 @@ class CreateInterestsTable extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->id();
+            $table->text('tags');
+            $table->uuid('user_id')->index();
+            $table->enum('status', ['activated', 'deactivated'])->default('activated');
             $table->timestamps();
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
