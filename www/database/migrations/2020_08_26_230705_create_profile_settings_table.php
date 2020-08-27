@@ -15,6 +15,8 @@ class CreateProfileSettingsTable extends Migration
     {
         Schema::create('profile_settings', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_id');
+            $table->string('setting');
             $table->timestamps();
         });
     }
