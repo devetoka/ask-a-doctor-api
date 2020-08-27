@@ -15,7 +15,7 @@ class CreateInterestsTable extends Migration
     {
         Schema::create('interests', function (Blueprint $table) {
             $table->id();
-            $table->json('tags');
+            $table->text('tags');
             $table->uuid('user_id')->index();
             $table->enum('status', ['activated', 'deactivated'])->default('activated');
             $table->timestamps();
