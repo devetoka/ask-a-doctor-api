@@ -18,8 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//authentication routes
+
 Route::prefix('v1')->namespace('v1')->group(function (){
+
+    /**
+     *
+     *
+     * Authentication routes
+     */
     Route::prefix('auth')->group(function(){
         Route::post('register', 'Auth\RegisterController@register');
         Route::post('login', 'Auth\LoginController@login')->middleware(['throttle'])->name('login');
@@ -27,10 +33,44 @@ Route::prefix('v1')->namespace('v1')->group(function (){
         Route::post('password-reset', 'Auth\ForgotPasswordController@sendResetLinkEmail');
         Route::post('reset', 'Auth\ResetPasswordController@reset');
     });
+
+    /**
+     *
+     *
+     * End of authentication routes
+     */
+
+
+    /**
+     *
+     * Protected routes
+     */
+    Route::middleware('auth:api')->group(function(){
+
+        //user routes
+        Route::prefix('users')->group(function(){
+
+            //user-categories routes
+            Route::post('categories','CategoryUserController@store')
+                ->name('user.categories.create');
+            Route::delete('categories','CategoryUserController@destroy')
+                ->name('user.categories.destroy');
+            // end of user-categories routes
+        });
+
+
+        // categories routes
+        Route::prefix( 'categories')->group(function(){
+            Route::post('/', 'CategoryController@store')->name('category.store');
+        });
+
+    });
+
+    /**
+     *
+     * End of protected routes
+     */
 });
 
 //protected routes
-Route::middleware('auth:api')->group(function(){
 
-
-});

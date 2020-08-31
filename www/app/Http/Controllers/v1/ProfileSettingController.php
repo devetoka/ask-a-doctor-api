@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Models\CategoryUser;
+use App\Models\ProfileSetting;
 use Illuminate\Http\Request;
 
-class CategoryUserController extends Controller
+class ProfileSettingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CategoryUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CategoryUser  $categoryUser
+     * @param  \App\Models\ProfileSetting  $profileSetting
      * @return \Illuminate\Http\Response
      */
-    public function show(CategoryUser $categoryUser)
+    public function show(ProfileSetting $profileSetting)
     {
         //
     }
@@ -52,10 +52,10 @@ class CategoryUserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CategoryUser  $categoryUser
+     * @param  \App\Models\ProfileSetting  $profileSetting
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoryUser $categoryUser)
+    public function edit(ProfileSetting $profileSetting)
     {
         //
     }
@@ -64,10 +64,10 @@ class CategoryUserController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CategoryUser  $categoryUser
+     * @param  \App\Models\ProfileSetting  $profileSetting
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryUser $categoryUser)
+    public function update(Request $request, ProfileSetting $profileSetting)
     {
         //
     }
@@ -75,10 +75,10 @@ class CategoryUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CategoryUser  $categoryUser
+     * @param  \App\Models\ProfileSetting  $profileSetting
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CategoryUser $categoryUser)
+    public function destroy(ProfileSetting $profileSetting)
     {
         //
     }

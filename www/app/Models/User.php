@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\UUID;
 use App\Notifications\Auth\MailResetPasswordNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,16 +11,15 @@ use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, Notifiable;
+    use HasApiTokens, Notifiable, UUID;
+    public $incrementing = false;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name', 'last_name', 'username', 'email', 'password', 'status'
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function categories()
     {
-        return $this->hasMany(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function questions()
@@ -72,6 +72,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(ProfileSetting::class);
     }
+
 
 
 }

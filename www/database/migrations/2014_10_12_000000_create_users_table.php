@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('last_name', 50);
             $table->string('username', 50)->unique();
             $table->string('email', 50)->unique();
+            $table->enum('role', ['user', 'admin']);
             $table->text('password');
             $table->enum('status', ['activated','suspended', 'deactivated'])->default('activated');
             $table->timestamp('email_verified_at')->nullable();

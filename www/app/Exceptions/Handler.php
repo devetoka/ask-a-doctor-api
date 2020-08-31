@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use App\Exceptions\Custom\CustomException;
 use App\Http\Response\ApiResponse;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
@@ -66,6 +69,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        logger($exception->getMessage());
         if($exception instanceof ThrottleRequestsException) {
             return ApiResponse::sendResponse([], $exception->getMessage(),
                 false, ApiResponse::HTTP_TOO_MANY_REQUESTS
@@ -76,11 +80,30 @@ class Handler extends ExceptionHandler
                 false, $exception->getStatusCode()
             );
         }
-        if($exception instanceof QueryException) {
-            return ApiResponse::sendResponse([], trans('exception.database'),
-                false, ApiResponse::HTTP_INTERNAL_SERVER_ERROR
+//        if($exception instanceof QueryException) {
+//
+//            return ApiResponse::sendResponse([], trans('exception.database'),
+//                false, ApiResponse::HTTP_INTERNAL_SERVER_ERROR
+//            );
+//        }
+        if($exception instanceof AuthenticationException){
+            return ApiResponse::sendResponse([], trans('exception.unauthenticated'),
+                false, ApiResponse::HTTP_UNAUTHORIZED
             );
         }
+        if($exception instanceof AuthorizationException){
+            return ApiResponse::sendResponse([], trans('exception.authorization'),
+                false, ApiResponse::HTTP_FORBIDDEN
+            );
+        }
+
+        if($exception instanceof CustomException){
+
+            return ApiResponse::sendResponse([], trans('exception.custom'),
+                false, $exception->getCode()
+            );
+        }
+
 //        if(array_key_exists($exception->getStatusCode(), $this->errorCodes)){
 //            return ApiResponse::sendResponse([], trans($this->errorCodes[$exception->getStatusCode()]),
 //                false, $exception->getStatusCode()

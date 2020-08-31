@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\v1\Auth;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\v1\Controller;
 use App\Http\Response\ApiResponse;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -77,9 +77,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
+//            'id' => preg_replace('/\./', '', uniqid('usr', true)),
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'username' => $data['username'],
+            'role' => 'user',
             'email' => $data['email'],
             'password' => Hash::make($data['password'])
         ]);

@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Models\ProfileSetting;
 use Illuminate\Http\Request;
 
-class ProfileSettingController extends Controller
+class VoteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +40,10 @@ class ProfileSettingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\ProfileSetting  $profileSetting
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function show(ProfileSetting $profileSetting)
+    public function show(Vote $vote)
     {
         //
     }
@@ -52,10 +51,10 @@ class ProfileSettingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\ProfileSetting  $profileSetting
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function edit(ProfileSetting $profileSetting)
+    public function edit(Vote $vote)
     {
         //
     }
@@ -64,10 +63,10 @@ class ProfileSettingController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProfileSetting  $profileSetting
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ProfileSetting $profileSetting)
+    public function update(Request $request, Vote $vote)
     {
         //
     }
@@ -75,10 +74,10 @@ class ProfileSettingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\ProfileSetting  $profileSetting
+     * @param  \App\Models\Vote  $vote
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ProfileSetting $profileSetting)
+    public function destroy(Vote $vote)
     {
         //
     }

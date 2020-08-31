@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\v1;
 
-use App\Models\Interest;
+use App\Models\Question;
 use Illuminate\Http\Request;
 
-class InterestController extends Controller
+class QuestionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class InterestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Interest  $interest
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function show(Interest $interest)
+    public function show(Question $question)
     {
         //
     }
@@ -52,10 +52,10 @@ class InterestController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Interest  $interest
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function edit(Interest $interest)
+    public function edit(Question $question)
     {
         //
     }
@@ -64,10 +64,10 @@ class InterestController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Interest  $interest
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Interest $interest)
+    public function update(Request $request, Question $question)
     {
         //
     }
@@ -75,10 +75,10 @@ class InterestController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Interest  $interest
+     * @param  \App\Models\Question  $question
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Interest $interest)
+    public function destroy(Question $question)
     {
         //
     }
