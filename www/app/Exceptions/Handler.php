@@ -6,6 +6,7 @@ use App\Exceptions\Custom\CustomException;
 use App\Http\Response\ApiResponse;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
@@ -89,6 +90,11 @@ class Handler extends ExceptionHandler
         if($exception instanceof AuthenticationException){
             return ApiResponse::sendResponse([], trans('exception.unauthenticated'),
                 false, ApiResponse::HTTP_UNAUTHORIZED
+            );
+        }
+        if($exception instanceof ModelNotFoundException){
+            return ApiResponse::sendResponse([], trans('exception.model.not_found'),
+                false, ApiResponse::HTTP_NOT_FOUND
             );
         }
         if($exception instanceof AuthorizationException){
