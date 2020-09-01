@@ -62,6 +62,9 @@ Route::prefix('v1')->namespace('v1')->group(function (){
         // categories routes
         Route::prefix( 'categories')->group(function(){
             Route::post('/', 'CategoryController@store')->name('category.store');
+            Route::put('/{category_id}', 'CategoryController@update')->name('category.update');
+            Route::get('/{category_id}', 'CategoryController@show')->name('category.show');
+            Route::delete('/{category_id}', 'CategoryController@destroy')->name('category.destroy');
         });
 
     });

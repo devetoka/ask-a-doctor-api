@@ -32,7 +32,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function find($id)
     {
-        return $this->model->find($id);
+        return $this->model->findorFail($id);
     }
 
     public function create(array $attributes)
@@ -42,7 +42,7 @@ class CategoryRepository implements CategoryRepositoryInterface
 
     public function update($id, array $attributes)
     {
-        return $this->model->update($id, $attributes);
+        return $this->find($id)->update($attributes);
     }
 
     public function delete($id)

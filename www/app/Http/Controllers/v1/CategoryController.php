@@ -7,6 +7,7 @@ use App\Http\Resources\Category\CategoryResource;
 use App\Http\Response\ApiResponse;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -34,15 +35,7 @@ class CategoryController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create()
-    {
-        //
-    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -56,30 +49,23 @@ class CategoryController extends Controller
             ->create($request->only(['name', 'description']));
         $category = new CategoryResource($category);
         return ApiResponse::sendResponse($category,
-            trans('category,store'));
+            trans('controllers.category,store'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
-     * @return Response
+     * @param $category_id
+     * @return void
      */
-    public function show(Category $category)
+    public function show($category_id)
     {
-        //
+        $category = $this->categoryRepository->find($category_id);
+        $category = new CategoryResource($category);
+        return ApiResponse::sendResponse($category,
+            trans('controllers.category.show'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return Response
-     */
-    public function edit(Category $category)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -88,19 +74,25 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, $category_id)
     {
-        //
+        $this->categoryRepository->update($category_id, $request->only(['name', 'description']));
+        return ApiResponse::sendResponse([],
+            trans('controllers.category.update'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
-     * @return Response
+     * @param $category_id
+     * @return void
+     * @throws AuthorizationException
      */
-    public function destroy(Category $category)
+    public function destroy($category_id)
     {
-        //
+        if(request()->user('api')->role  !== 'admin')
+            throw new AuthorizationException();
+        return ApiResponse::sendResponse($this->categoryRepository->delete($category_id),
+            trans('controllers.category.destroy'));
     }
 }
