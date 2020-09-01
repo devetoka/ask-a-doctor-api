@@ -63,15 +63,15 @@ class RegistrationTest extends BaseTestCase
         ]);
     }
 
-    /**
-     * @test
-     */
-    public function registered_event_was_triggered_when_user_was_created()
-    {
-        Event::fake();
-        $response = $this->post('/api/v1/auth/register', $this->getData());
-        Event::assertDispatched(Registered::class);
-    }
+//    /**
+//     * @test
+//     */
+//    public function registered_event_was_triggered_when_user_was_created()
+//    {
+//        Event::fake();
+//        $response = $this->post('/api/v1/auth/register', $this->getData());
+//        Event::assertDispatched(Registered::class);
+//    }
 
     private function getData()
     {
