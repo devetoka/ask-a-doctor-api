@@ -45,6 +45,23 @@ class CategoryControllerTest extends BaseTestCase
         $response->assertSee($this->getData()['name']);
     }
 
+
+    /**
+     * @test
+     */
+    public function an_admin_cannot_create_a_category_if_validation_fails()
+    {
+        $response = $this->post(route('category.store', []));
+        $response->assertStatus(ApiResponse::HTTP_BAD_REQUEST);
+        $response->assertJsonStructure([
+            'status',
+            'message',
+            'errors' => [
+                '*' => []
+            ]
+        ]);
+        $response->assertSee(false);
+    }
     /**
      * @test
      */

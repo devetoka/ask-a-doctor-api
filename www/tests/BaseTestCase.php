@@ -11,7 +11,7 @@ class BaseTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-//        $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         \Artisan::call('passport:install');
         $this->withoutMiddleware(
             ThrottleRequests::class
