@@ -13,7 +13,6 @@ use Tests\BaseTestCase;
 class VerificationTest extends BaseTestCase
 {
 
-    private $user;
 
     protected function setUp(): void
     {

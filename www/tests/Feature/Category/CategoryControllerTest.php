@@ -17,13 +17,8 @@ use Tests\BaseTestCase;
 
 class CategoryControllerTest extends BaseTestCase
 {
-    /**
-     * @var Collection|Model
-     */
-    private $user;
-    /**
-     * @var Collection|Model
-     */
+
+
     private $category;
 
     protected function setUp(): void
@@ -33,7 +28,7 @@ class CategoryControllerTest extends BaseTestCase
            'role' => 'admin'
         ]);
         $this->category = factory(Category::class)->create();
-        $this->actingAs($this->user, 'api');
+        $this->login();
     }
 
     /**

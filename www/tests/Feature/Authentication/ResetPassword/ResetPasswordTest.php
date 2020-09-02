@@ -15,7 +15,6 @@ use Tests\BaseTestCase;
 class ResetPasswordTest extends BaseTestCase
 {
 
-    private $user;
     private $token;
 
     protected function setUp(): void

@@ -7,57 +7,28 @@ namespace App\Repositories\Category;
 use App\Exceptions\Custom\CustomException;
 use App\Models\Category;
 use App\Models\User;
+use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 
-class CategoryRepository implements CategoryRepositoryInterface
+class CategoryRepository extends BaseRepository implements CategoryRepositoryInterface
 {
-    private $user;
-    /**
-     * @var Request
-     */
-    private $authUser;
-    private $model;
-    private $category_id;
+
 
     public function __construct(Category $model, Request $request)
     {
-        $this->model = $model;
-        $this->category_id = $request->category;
+        parent::__construct($model, $request);
+
     }
 
-    public function all()
-    {
-        return $this->model->all();
-    }
-
-    public function find($id)
-    {
-        return $this->model->findorFail($id);
-    }
-
-    public function create(array $attributes)
-    {
-        return $this->model->create($attributes);
-    }
-
-    public function update($id, array $attributes)
-    {
-        return $this->find($id)->update($attributes);
-    }
-
-    public function delete($id)
-    {
-        return $this->find($id)->delete();
-    }
 
 
     public function users()
     {
-        return $this->find($this->category_id)->users();
+        return $this->find($this->request->category_id)->users();
     }
 
     public function questions()
     {
-        return $this->find($this->category_id)->questions();
+        return $this->find($this->request->category_id)->questions();
     }
 }

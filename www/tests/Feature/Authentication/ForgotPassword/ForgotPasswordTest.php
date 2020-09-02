@@ -14,7 +14,6 @@ use Tests\BaseTestCase;
 class ForgotPasswordTest extends BaseTestCase
 {
 
-    private $user;
 
     protected function setUp(): void
     {

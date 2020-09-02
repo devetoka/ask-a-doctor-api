@@ -20,6 +20,8 @@ class CreateQuestionsTable extends Migration
             $table->string('title');
             $table->string('slug');
             $table->longText('description')->nullable();
+            $table->enum('status', ['active',
+                'inactive', 'suspended', 'reported'])->default('active');
             $table->timestamps();
 
             $table->foreign('category_id')
