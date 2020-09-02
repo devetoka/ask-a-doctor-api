@@ -9,6 +9,7 @@ class RepositoryServiceProvider extends ServiceProvider
     protected $repositories = [
         'App\Repositories\Category\CategoryRepositoryInterface' => 'App\Repositories\Category\CategoryRepository',
         'App\Repositories\User\UserRepositoryInterface' => 'App\Repositories\User\UserRepository',
+        'App\Repositories\Question\QuestionRepositoryInterface' => 'App\Repositories\Question\QuestionRepository'
     ];
     /**
      * Register services.

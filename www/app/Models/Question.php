@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Models\Contracts\UUID;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    public $incrementing = false;
+    protected $guarded = [];
     //
     public function user()
     {

@@ -20,13 +20,7 @@ use Tests\BaseTestCase;
 
 class UserCategoryTest extends BaseTestCase
 {
-    /**
-     * @var Collection|Model
-     */
-    private $user;
-    /**
-     * @var Collection|Model
-     */
+
     private $categories;
     private $userRepository;
 
@@ -37,7 +31,7 @@ class UserCategoryTest extends BaseTestCase
         //create a user
         //sign in as the user
         $this->user =factory(User::class)->create();
-        $this->actingAs($this->user, 'api');
+        $this->login();
         //create categories
 //        dd($this->user->categories);
         $this->categories = factory(Category::class, 4)->create()

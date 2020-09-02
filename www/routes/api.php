@@ -67,6 +67,15 @@ Route::prefix('v1')->namespace('v1')->group(function (){
             Route::delete('/{category_id}', 'CategoryController@destroy')->name('category.destroy');
         });
 
+
+        // questions routes
+        Route::prefix( 'questions')->group(function(){
+            Route::post('/', 'QuestionController@store')->name('question.store');
+            Route::put('/{question_id}', 'QuestionController@update')->name('question.update');
+            Route::get('/{question_id}', 'QuestionController@show')->name('question.show');
+            Route::delete('/{question_id}', 'QuestionController@destroy')->name('question.destroy');
+        });
+
     });
 
     /**
