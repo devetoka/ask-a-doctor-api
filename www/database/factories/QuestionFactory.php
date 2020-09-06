@@ -12,8 +12,9 @@ $factory->define(\App\Models\Question::class, function (Faker $faker) {
     $user = factory(\App\Models\User::class)->create();
     $title = $faker->sentence;
     return [
+        'id' => 'qtn'.uniqid(),
         'category_id' => $category->id,
-        'user_id' => $user,
+        'user_id' => $user->id,
         'title' => $title,
         'slug' => Str::slug($title),
         'description' => $faker->paragraph

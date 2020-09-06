@@ -101,6 +101,22 @@ class CategoryControllerTest extends BaseTestCase
 
     /**
      * @test
+     * TODO: categories should be fetched without authentication
+     */
+    public function categories_can_be_fetched()
+    {
+        $response = $this->get(route('category.index'));
+        $response->assertOk();
+        $data = json_decode($response->getContent())->data;
+        $response->assertJsonStructure([
+            'status',
+            'message',
+            'data'
+        ]);
+    }
+
+    /**
+     * @test
      */
     public function returns_404_if_category_not_found()
     {

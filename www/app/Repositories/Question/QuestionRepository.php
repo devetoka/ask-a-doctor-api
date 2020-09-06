@@ -14,12 +14,19 @@ class QuestionRepository extends BaseRepository implements QuestionRepositoryInt
     public function __construct(Question $model, Request $request)
     {
         parent::__construct($model, $request);
-
         $this->model->creating(function($model){
             $model->user_id = $this->user->id;
             $model->id = preg_replace('/\./', '', uniqid('qtn', true));
             $model->slug = Str::slug($this->request->title);
         });
+
+        $this->model->updating(function($model){
+            $model->slug = Str::slug($this->request->title);
+        });
     }
 
+    public function findBySlug($slug)
+    {
+       return  $this->model->whereSlug($slug)->firstOrFail();
+    }
 }

@@ -15,10 +15,12 @@ class CategoryResourceCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return [
-           'name' => $this->name,
-           'description' => $this->description
-        ];
+        return array_map(function($item){
+            return [
+                'name' => $item['name'],
+                'description' => $item['description']
+            ];
+        }, $this->collection->toArray());
 //        return parent::toArray($request);
     }
 }

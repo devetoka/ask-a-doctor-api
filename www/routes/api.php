@@ -38,6 +38,18 @@ Route::prefix('v1')->namespace('v1')->group(function (){
      *
      *
      * End of authentication routes
+     *
+     */
+
+    /**
+     *
+     * unprotected routes
+     */
+    Route::get('/categories', 'CategoryController@index')->name('category.index');
+    Route::get('/questions/{question_id}', 'QuestionController@show')->name('question.show'); // show question
+
+    /**
+     * end of unprotected routes
      */
 
 
@@ -72,7 +84,6 @@ Route::prefix('v1')->namespace('v1')->group(function (){
         Route::prefix( 'questions')->group(function(){
             Route::post('/', 'QuestionController@store')->name('question.store');
             Route::put('/{question_id}', 'QuestionController@update')->name('question.update');
-            Route::get('/{question_id}', 'QuestionController@show')->name('question.show');
             Route::delete('/{question_id}', 'QuestionController@destroy')->name('question.destroy');
         });
 
