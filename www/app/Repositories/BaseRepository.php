@@ -21,7 +21,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
     {
         $this->model = $model;
         $this->request = $request;
-        $this->user = $request->user();
+        $this->user = $request->user('api');
     }
 
     public function all()

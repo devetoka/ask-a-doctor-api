@@ -4,6 +4,7 @@ namespace App\Http\Controllers\v1;
 
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\Category\CategoryResource;
+use App\Http\Resources\Category\CategoryResourceCollection;
 use App\Http\Response\ApiResponse;
 use App\Models\Category;
 use App\Repositories\Category\CategoryRepositoryInterface;
@@ -32,7 +33,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = $this->categoryRepository->all();
+        $categories = new CategoryResourceCollection($categories);
+        return ApiResponse::sendResponse($categories,
+            trans('controllers.category.index'));
     }
 
 

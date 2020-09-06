@@ -26,7 +26,7 @@ class QuestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:40',
+            'title' => 'required|max:40|unique:questions,title',
             'category_id' => 'required|numeric|exists:categories,id',
         ];
     }

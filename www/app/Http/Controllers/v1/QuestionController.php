@@ -59,18 +59,26 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Question  $question
+     * @param $question_id
      * @return Response
      */
-    public function show(Question $question)
+    public function show($question_id)
     {
-        //
+        //check if an id was sent or a slug
+        if(str_contains($question_id, 'qtn'))
+            $question = $this->questionRepository->find($question_id);
+        else
+            $question = $this->questionRepository->findBySlug($question_id);
+        return ApiResponse::sendResponse(
+            new QuestionResource($question),
+            trans('controller.question.show')
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Question  $question
+     * @param Question $question
      * @return Response
      */
     public function edit(Question $question)
@@ -81,23 +89,35 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  \App\Models\Question  $question
-     * @return Response
+     * @param QuestionRequest $request
+     * @param $question_id
+     * @return void
      */
-    public function update(Request $request, Question $question)
+    public function update(QuestionRequest $request, $question_id)
     {
-        //
+        //TODO: only creator and moderator can edit a question
+        $this->questionRepository->update($question_id,
+            $request->only(['title', 'description', 'category_id']));
+        return ApiResponse::sendResponse(
+            [],
+            trans('controller.question.update')
+        );
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Question  $question
-     * @return Response
+     * @param $question_id
+     * @return void
      */
-    public function destroy(Question $question)
+    public function destroy($question_id)
     {
-        //
+        //TODO: only creator of a question can delete a question
+        $this->questionRepository->delete($question_id);
+        return ApiResponse::sendResponse(
+            [],
+            trans('controller.question.destroy')
+        );
     }
 }
