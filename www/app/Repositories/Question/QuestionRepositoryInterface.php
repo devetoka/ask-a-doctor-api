@@ -10,4 +10,6 @@ interface QuestionRepositoryInterface extends BaseRepositoryInterface
 {
     public function findBySlug($slug);
 
+    public function storeReply($question_id, $reply);
+
 }

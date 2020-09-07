@@ -47,6 +47,7 @@ Route::prefix('v1')->namespace('v1')->group(function (){
      */
     Route::get('/categories', 'CategoryController@index')->name('category.index');
     Route::get('/questions/{question_id}', 'QuestionController@show')->name('question.show'); // show question
+    Route::get('/replies/{reply_id}', 'ReplyController@show')->name('reply.show'); // show reply
 
     /**
      * end of unprotected routes
@@ -78,6 +79,7 @@ Route::prefix('v1')->namespace('v1')->group(function (){
             Route::get('/{category_id}', 'CategoryController@show')->name('category.show');
             Route::delete('/{category_id}', 'CategoryController@destroy')->name('category.destroy');
         });
+        //end of categories route
 
 
         // questions routes
@@ -86,6 +88,25 @@ Route::prefix('v1')->namespace('v1')->group(function (){
             Route::put('/{question_id}', 'QuestionController@update')->name('question.update');
             Route::delete('/{question_id}', 'QuestionController@destroy')->name('question.destroy');
         });
+        //end of questions routes
+
+
+        //reply routes
+        Route::prefix( 'replies')->group(function(){
+            Route::put('/{reply_id}', 'ReplyController@update')->name('reply.update');
+            Route::post('/{reply_id}/replies', 'ReplyController@store')
+                ->name('reply.question.store');
+            Route::delete('/{reply_id}', 'ReplyController@destroy')->name('reply.destroy');
+        });
+
+        //reply to a question
+        Route::post('/questions/{question_id}/replies', 'ReplyController@replyToQuestion')
+            ->name('reply.question.store');
+
+        //reply to a reply
+        Route::post('/replies/{reply_id}/replies', 'ReplyController@store')
+            ->name('reply.store');
+        //end of reply routes
 
     });
 

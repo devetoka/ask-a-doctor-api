@@ -6,9 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
+    public $incrementing = false;
+    protected $guarded = [];
     //
-    public function question()
+    public function replyable()
     {
-        return $this->belongsTo(Question::class);
+        return $this->morphTo();
+    }
+
+    public function replies()
+    {
+        return $this->morphMany(Reply::class, 'replyable');
     }
 }
