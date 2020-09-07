@@ -19,7 +19,6 @@ class QuestionRepository extends BaseRepository implements QuestionRepositoryInt
             $model->id = preg_replace('/\./', '', uniqid('qtn', true));
             $model->slug = Str::slug($this->request->title);
         });
-
         $this->model->updating(function($model){
             $model->slug = Str::slug($this->request->title);
         });
@@ -28,5 +27,14 @@ class QuestionRepository extends BaseRepository implements QuestionRepositoryInt
     public function findBySlug($slug)
     {
        return  $this->model->whereSlug($slug)->firstOrFail();
+    }
+
+    public function storeReply($question_id, $reply)
+    {
+        $data = [
+            'user_id' => $this->user->id,
+            'id' => preg_replace('/\./', '', uniqid('rpy', true))
+        ];
+        return $this->find($question_id)->replies()->create(array_merge($reply, $data));
     }
 }
